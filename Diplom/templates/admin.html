@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Панель администратора</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        .page-wrapper { max-width: 960px; }
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .admin-header h1 { margin: 0; border: none; padding: 0; font-size: 20px; }
+        hr { border: none; border-top: 2px solid var(--border); margin-bottom: 24px; }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="admin-header">
+            <h1>Панель администратора</h1>
+            <a href="/categories" class="btn btn-outline">← На сайт</a>
+        </div>
+        <hr>
+
+        {% if error %}
+            <div class="error-box">{{ error }}</div>
+        {% endif %}
+        <h2>Пользователи</h2>
+        <form action="/admin/add_user" method="post">
+            <div class="add-row">
+                <input type="text"     name="username" placeholder="Логин" required>
+                <input type="password" name="password" placeholder="Пароль" required>
+                <button type="submit" class="btn btn-green">Создать</button>
+            </div>
+        </form>
+        <ul class="admin-list">
+            {% for user in users %}
+            <li>
+                <strong>{{ user.username }}</strong>
+                <div class="actions">
+                    <a href="/admin/edit_user/{{ user.id }}" class="btn">Изменить</a>
+                    <form action="/admin/delete_user/{{ user.id }}" method="post">
+                        <button type="submit" class="btn btn-red">Удалить</button>
+                    </form>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <h2>Разделы</h2>
+        <form action="/admin/add_category" method="post">
+            <div class="add-row">
+                <input type="text" name="name" placeholder="Название раздела" required>
+                <button type="submit" class="btn btn-green">Добавить</button>
+            </div>
+        </form>
+        <ul class="admin-list">
+            {% for cat in categories %}
+            <li>
+                <form action="/admin/edit_category/{{ cat.id }}" method="post"
+                      style="display:flex;gap:8px;align-items:center;width:100%;">
+                    <input type="text" name="name" value="{{ cat.name }}"
+                           required style="flex-grow:1;margin:0;">
+                    <button type="submit" class="btn">Сохранить</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        <h2>Подразделы</h2>
+        <form action="/admin/add_subcategory" method="post">
+            <div class="add-row">
+                <input type="text" name="name" placeholder="Название подраздела" required>
+                <select name="category_id" required style="margin:0;">
+                    {% for cat in categories %}
+                        <option value="{{ cat.id }}">{{ cat.name }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btn btn-green">Добавить</button>
+            </div>
+        </form>
+        <ul class="admin-list">
+            {% for sub in subcategories %}
+            <li>
+                <form action="/admin/edit_subcategory/{{ sub.id }}" method="post"
+                      style="display:flex;gap:8px;align-items:center;width:100%;">
+                    <input type="text" name="name" value="{{ sub.name }}"
+                           required style="flex-grow:1;margin:0;">
+                    <button type="submit" class="btn">Сохранить</button>
+                </form>
+            </li>
+            {% endfor %}
+        </ul>
+        <h2>Мини-игры</h2>
+        <a href="/admin/add_game_page" class="btn btn-green"
+           style="display:inline-block;margin-bottom:14px;">+ Добавить игру</a>
+        <ul class="admin-list">
+            {% for game in games %}
+            <li>
+                <span>
+                    <strong>{{ game.name }}</strong>
+                    <span style="color:var(--text-muted);font-size:13px;">
+                        — {{ game.game_data.question }}
+                    </span>
+                </span>
+                <div class="actions">
+                    <a href="/admin/edit_game/{{ game.id }}" class="btn">Изменить</a>
+                    <form action="/admin/delete_game/{{ game.id }}" method="post">
+                        <button type="submit" class="btn btn-red">Удалить</button>
+                    </form>
+                </div>
+            </li>
+            {% else %}
+            <li style="color:var(--text-muted);">Игр пока нет.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>

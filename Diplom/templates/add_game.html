@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Добавить игру</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>.page-wrapper { max-width: 520px; }</style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <a href="/categories" class="back-link">← Вернуться в главное меню</a>
+        <h1>Добавить игру</h1>
+
+        <form action="{{ form_action }}" method="post" enctype="multipart/form-data">
+            <label>Название игры</label>
+            <input type="text" name="name" required>
+
+            <label>Подраздел</label>
+            <select name="subcategory_id" required>
+                {% for sub in subcategories %}
+                    <option value="{{ sub.id }}"
+                        {% if sub.id == preselected_id %}selected{% endif %}>
+                        {{ sub.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label>Тип игры</label>
+            <select name="game_type" required>
+                <option value="text">Текст</option>
+                <option value="image">Изображение</option>
+                <option value="audio">Аудио</option>
+            </select>
+
+            <label>Вопрос / Задание</label>
+            <input type="text" name="question" required>
+
+            <label>Правильный ответ
+                <span style="font-weight:400;color:var(--text-muted);">
+                    (несколько — через «;»)
+                </span>
+            </label>
+            <input type="text" name="correct_answer" required>
+
+            <label>Варианты ответов
+                <span style="font-weight:400;color:var(--text-muted);">(через «;», необязательно)</span>
+            </label>
+            <input type="text" name="options" placeholder="Да;Нет;Не знаю">
+
+            <label>Изображение (необязательно)</label>
+            <input type="file" name="image_file" accept="image/*">
+
+            <label>Аудио (необязательно)</label>
+            <input type="file" name="audio_file" accept="audio/*">
+
+            <button type="submit" class="btn btn-green btn-large">Сохранить игру</button>
+        </form>
+    </div>
+</body>
+</html>

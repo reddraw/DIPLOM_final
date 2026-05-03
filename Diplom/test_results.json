@@ -1,0 +1,123 @@
+{
+  "summary": {
+    "total": 14,
+    "passed": 14,
+    "failed": 0,
+    "errors": 0,
+    "total_duration_sec": 5.254
+  },
+  "tests": [
+    {
+      "class": "TestPasswordUtils",
+      "test": "test_empty_password_hashes",
+      "description": "Пустая строка тоже хэшируется без ошибок.",
+      "status": "PASSED",
+      "duration_sec": 1.3707,
+      "error": null
+    },
+    {
+      "class": "TestPasswordUtils",
+      "test": "test_hash_differs_from_plain",
+      "description": "Хэш не равен исходному паролю.",
+      "status": "PASSED",
+      "duration_sec": 0.3582,
+      "error": null
+    },
+    {
+      "class": "TestPasswordUtils",
+      "test": "test_hash_is_long_enough",
+      "description": "Хэш bcrypt длиннее 20 символов.",
+      "status": "PASSED",
+      "duration_sec": 0.3577,
+      "error": null
+    },
+    {
+      "class": "TestPasswordUtils",
+      "test": "test_hash_is_string",
+      "description": "Хэш является строкой.",
+      "status": "PASSED",
+      "duration_sec": 0.342,
+      "error": null
+    },
+    {
+      "class": "TestPasswordUtils",
+      "test": "test_same_password_different_hashes",
+      "description": "Два хэша одного пароля отличаются (bcrypt salt).",
+      "status": "PASSED",
+      "duration_sec": 0.7129,
+      "error": null
+    },
+    {
+      "class": "TestPasswordUtils",
+      "test": "test_unicode_password",
+      "description": "Юникодный пароль хэшируется корректно.",
+      "status": "PASSED",
+      "duration_sec": 0.7112,
+      "error": null
+    },
+    {
+      "class": "TestPasswordUtils",
+      "test": "test_verify_correct_password",
+      "description": "Верный пароль проходит проверку.",
+      "status": "PASSED",
+      "duration_sec": 0.6966,
+      "error": null
+    },
+    {
+      "class": "TestPasswordUtils",
+      "test": "test_verify_wrong_password",
+      "description": "Неверный пароль не проходит проверку.",
+      "status": "PASSED",
+      "duration_sec": 0.6987,
+      "error": null
+    },
+    {
+      "class": "TestSaveFile",
+      "test": "test_audio_folder_in_path",
+      "description": "Аудио-файл попадает в папку audio.",
+      "status": "PASSED",
+      "duration_sec": 0.0012,
+      "error": null
+    },
+    {
+      "class": "TestSaveFile",
+      "test": "test_empty_filename_returns_none",
+      "description": "Файл с пустым именем → None.",
+      "status": "PASSED",
+      "duration_sec": 0.0006,
+      "error": null
+    },
+    {
+      "class": "TestSaveFile",
+      "test": "test_extension_preserved",
+      "description": "Расширение файла сохраняется.",
+      "status": "PASSED",
+      "duration_sec": 0.0008,
+      "error": null
+    },
+    {
+      "class": "TestSaveFile",
+      "test": "test_none_returns_none",
+      "description": "None вместо файла → None.",
+      "status": "PASSED",
+      "duration_sec": 0.0,
+      "error": null
+    },
+    {
+      "class": "TestSaveFile",
+      "test": "test_unique_filenames",
+      "description": "Два одинаковых файла получают разные имена (UUID).",
+      "status": "PASSED",
+      "duration_sec": 0.0021,
+      "error": null
+    },
+    {
+      "class": "TestSaveFile",
+      "test": "test_valid_image_returns_path",
+      "description": "Валидный файл возвращает путь /uploads/images/...",
+      "status": "PASSED",
+      "duration_sec": 0.0009,
+      "error": null
+    }
+  ]
+}

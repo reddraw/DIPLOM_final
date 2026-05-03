@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ game.name }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body { display: flex; flex-direction: column; align-items: center; justify-content: center; }
+    </style>
+</head>
+<body>
+    <a href="/logout" class="btn btn-red logout-btn">Выйти</a>
+
+    <div class="page-wrapper" style="width:100%;">
+        <a href="/subcategory/{{ subcategory_id }}" class="back-link">← Назад</a>
+        <h1>{{ game.name }}</h1>
+
+        <div id="game-container" class="game-container"></div>
+    </div>
+
+    <div id="game-data"
+         data-game="{{ game.game_data | tojson | forceescape }}"
+         data-subcategory="{{ subcategory_id }}"
+         data-id="{{ game.id }}"
+         style="display:none;"></div>
+
+    <script src="/static/engine.js"></script>
+    <script>
+        const el = document.getElementById('game-data');
+        let gameData;
+        try {
+            gameData = JSON.parse(el.dataset.game);
+            if (typeof gameData === 'string') gameData = JSON.parse(gameData);
+        } catch (e) {
+            console.error('Ошибка чтения данных игры:', e);
+        }
+        gameData.subcategory_id = parseInt(el.dataset.subcategory);
+        new Engine('game-container', gameData, parseInt(el.dataset.id));
+    </script>
+</body>
+</html>

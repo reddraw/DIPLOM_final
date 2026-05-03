@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Разделы</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <a href="/logout" class="btn btn-red logout-btn">Выйти</a>
+
+    <div class="page-wrapper">
+        <h1>Выберите раздел</h1>
+
+        {% for cat in categories %}
+        <div class="category-section">
+            <div class="category-title">{{ cat.name }}</div>
+            {% for sub in cat.subcategories %}
+                <a href="/subcategory/{{ sub.id }}" class="subcat-link">{{ sub.name }}</a>
+            {% endfor %}
+            {% if not cat.subcategories %}
+                <p style="color:var(--text-muted);font-size:14px;padding:4px 0 0 2px;">
+                    В этом разделе пока нет подразделов.
+                </p>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        {% if not categories %}
+            <p style="color:var(--text-muted);">Разделы пока не добавлены.</p>
+        {% endif %}
+    </div>
+</body>
+</html>

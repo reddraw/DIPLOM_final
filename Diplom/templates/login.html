@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if is_register %}Регистрация{% else %}Вход{% endif %}</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        .page-wrapper {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h2 {
+            border: none;
+            margin: 0 0 22px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: 0;
+            color: var(--text);
+        }
+        .switch-link {
+            margin-top: 18px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+        .switch-link a { color: var(--primary); }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="logo">🎮 МиниИгры</div>
+        <div class="subtitle">Образовательная платформа</div>
+
+        <h2>{% if is_register %}Создать аккаунт{% else %}Вход в систему{% endif %}</h2>
+
+        {% if error %}
+            <div class="error-box">{{ error }}</div>
+        {% endif %}
+
+        <form action="{% if is_register %}/register{% else %}/login{% endif %}" method="post" style="text-align:left;">
+            <label>Логин</label>
+            <input type="text" name="username" placeholder="Введите логин" required>
+
+            <label>Пароль</label>
+            <input type="password" name="password" placeholder="Введите пароль" required>
+
+            <button type="submit" class="btn btn-green btn-large">
+                {% if is_register %}Зарегистрироваться{% else %}Войти{% endif %}
+            </button>
+        </form>
+
+        <div class="switch-link">
+            {% if is_register %}
+                Уже есть аккаунт? <a href="/login">Войти</a>
+            {% else %}
+                Нет аккаунта? <a href="/register">Зарегистрироваться</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

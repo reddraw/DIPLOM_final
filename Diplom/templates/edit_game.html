@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать игру</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>.page-wrapper { max-width: 520px; }</style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <a href="/admin" class="back-link">← Вернуться в админку</a>
+        <h1>Изменить игру</h1>
+
+        <form action="/admin/edit_game/{{ game.id }}" method="post" enctype="multipart/form-data">
+            <label>Название</label>
+            <input type="text" name="name" value="{{ game.name }}" required>
+
+            <label>Подраздел</label>
+            <select name="subcategory_id" required>
+                {% for sub in subcategories %}
+                    <option value="{{ sub.id }}"
+                        {% if sub.id == game.subcategory_id %}selected{% endif %}>
+                        {{ sub.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <label>Вопрос / Задание</label>
+            <input type="text" name="question"
+                   value="{{ game.game_data.question }}" required>
+
+            <label>Правильный ответ</label>
+            <input type="text" name="correct_answer"
+                   value="{{ game.game_data.correct_answer }}" required>
+
+            <label>Заменить картинку (необязательно)</label>
+            <input type="file" name="image_file" accept="image/*">
+
+            <label>Заменить аудио (необязательно)</label>
+            <input type="file" name="audio_file" accept="audio/*">
+
+            <button type="submit" class="btn btn-green btn-large">Сохранить изменения</button>
+        </form>
+    </div>
+</body>
+</html>

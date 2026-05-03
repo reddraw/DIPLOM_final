@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать пользователя</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <style>
+        body { display: flex; justify-content: center; padding: 40px 20px; }
+        .page-wrapper { max-width: 420px; }
+    </style>
+</head>
+<body>
+    <div class="page-wrapper">
+        <a href="/admin" class="back-link">← Вернуться в админку</a>
+        <h1>Редактировать пользователя</h1>
+
+        <form action="/admin/edit_user/{{ user.id }}" method="post">
+            <label>Логин</label>
+            <input type="text" name="username" value="{{ user.username }}" required>
+
+            <label>Новый пароль
+                <span style="font-weight:400;color:var(--text-muted);">
+                    (оставьте пустым, чтобы не менять)
+                </span>
+            </label>
+            <input type="password" name="new_password">
+
+            <button type="submit" class="btn btn-green btn-large">Сохранить изменения</button>
+        </form>
+    </div>
+</body>
+</html>

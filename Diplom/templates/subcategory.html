@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ subcategory.name }}</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <a href="/logout" class="btn btn-red logout-btn">Выйти</a>
+
+    <div class="page-wrapper">
+        <a href="/categories" class="back-link">← Назад к разделам</a>
+        <h1>{{ subcategory.name }}</h1>
+
+        <a href="/add_game/{{ subcategory.id }}" class="btn btn-green"
+           style="display:inline-block;margin-bottom:20px;">+ Добавить задание</a>
+
+        {% for game in games %}
+        <div class="card">
+            <div>
+                <div style="font-weight:700;margin-bottom:4px;">{{ game.name }}</div>
+                {% if game.id in completed_game_ids %}
+                    <span class="badge-done">Пройдено ✓</span>
+                {% else %}
+                    <span class="badge-pending">Не пройдено</span>
+                {% endif %}
+            </div>
+            <a href="/game/{{ game.id }}" class="btn btn-green">Играть</a>
+        </div>
+        {% endfor %}
+
+        {% if not games %}
+            <p style="color:var(--text-muted);">В этом подразделе пока нет заданий.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
