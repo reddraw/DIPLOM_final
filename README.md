@@ -15,8 +15,8 @@
 ### 1. Клонируйте репозиторий
 
 ```bash
-git clone https://github.com/your-username/minigames.git
-cd minigames
+git clone https://github.com/reddraw/DIPLOM_final
+cd DIPLOM_final
 ```
 
 ### 2. Создайте виртуальное окружение и установите зависимости
